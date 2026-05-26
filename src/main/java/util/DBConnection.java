@@ -9,7 +9,7 @@ public class DBConnection {
     // Parametri di configurazione del database
     private static final String URL = "jdbc:mysql://localhost:3306/rotagames?serverTimezone=UTC";
     private static final String USER = "root"; // Sostituisci con il tuo username di MySQL
-    private static final String PASSWORD = "Anonimo243"; // Sostituisci con la tua password di MySQL
+    private static final String PASSWORD = "root"; // Sostituisci con la tua password di MySQL
     private static final String DRIVER_CLASS = "com.mysql.cj.jdbc.Driver";
 
     private static Connection connection = null;
