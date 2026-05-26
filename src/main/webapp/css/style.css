@@ -1,0 +1,48 @@
+body {
+    background-color: #04142C;
+    color: #FFFFFF;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- STILI HEADER E HOMEPAGE --- */
+header {
+    background-color: #112A54;
+    padding: 20px;
+    border-bottom: 2px solid #00E5FF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header h1 { margin: 0; color: #00E5FF; font-size: 1.8em; }
+.user-info { text-align: right; }
+.rotelline { color: #00E5FF; font-weight: bold; }
+.container { padding: 40px; }
+h2.section-title { color: #FFFFFF; border-left: 5px solid #00E5FF; padding-left: 10px; }
+
+/* --- STILI GRIGLIA CATALOGO --- */
+.catalog-grid { display: flex; flex-wrap: wrap; gap: 25px; margin-top: 20px; }
+.game-card { background-color: #112A54; border-radius: 8px; width: 260px; padding: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s; }
+.game-card:hover { transform: translateY(-5px); box-shadow: 0 6px 15px rgba(0, 229, 255, 0.3); }
+.game-title { color: #FFFFFF; font-size: 1.3em; font-weight: bold; margin: 0 0 10px 0; }
+.game-platform { color: #A0B0C8; font-size: 0.85em; text-transform: uppercase; margin-bottom: 15px; }
+.game-desc { color: #A0B0C8; font-size: 0.9em; line-height: 1.4; margin-bottom: 15px; flex-grow: 1; }
+.price-box { margin-bottom: 15px; }
+.original-price { color: #A0B0C8; text-decoration: line-through; font-size: 0.9em; margin-right: 8px; }
+.final-price { color: #FFFFFF; font-size: 1.2em; font-weight: bold; }
+.sconto-tag { background-color: #00E5FF; color: #04142C; padding: 2px 6px; font-weight: bold; font-size: 0.85em; border-radius: 4px; margin-left: 5px; }
+.btn-buy { background-color: #00E5FF; color: #04142C; text-align: center; padding: 10px; border-radius: 5px; font-weight: bold; text-decoration: none; transition: background-color 0.3s; display: block; }
+.btn-buy:hover { background-color: #0088CC; color: #FFFFFF; }
+
+/* --- STILI FORMULARIO --- */
+.form-wrapper { display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+.form-container { background-color: #112A54; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 229, 255, 0.2); text-align: center; width: 320px; }
+.form-container h2 { color: #00E5FF; margin-bottom: 20px; }
+.form-container input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #0088CC; border-radius: 5px; background-color: #04142C; color: #FFFFFF; box-sizing: border-box; }
+.form-container input[type="submit"] { background-color: #00E5FF; color: #04142C; border: none; font-weight: bold; cursor: pointer; margin-top: 15px; transition: background-color 0.3s; }
+.form-container input[type="submit"]:hover { background-color: #0088CC; color: #FFFFFF; }
+.error { color: #FF4444; margin-bottom: 15px; font-size: 0.9em; }
+.link-text { color: #A0B0C8; font-size: 0.9em; margin-top: 15px; display: block; }
+.link-text a { color: #00E5FF; text-decoration: none; font-weight: bold; }
+.link-text a:hover { text-decoration: underline; }
