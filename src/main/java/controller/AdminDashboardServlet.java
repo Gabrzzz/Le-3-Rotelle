@@ -36,7 +36,7 @@ public class AdminDashboardServlet extends HttpServlet {
             // Usiamo il metodo completo per l'amministrazione
             request.setAttribute("listaVideogiochi", new VideogiocoDAO().doRetrieveAllForAdmin());
         } else if ("ordini".equals(tab)) {
-            request.setAttribute("listaOrdini", new OrdineDAO().doRetrieveAllWithUser());
+            request.setAttribute("listaOrdini", new OrdineDAO().doRetrieveAllForAdmin());
         } else if ("statistiche".equals(tab)) {
             request.setAttribute("totaleGiochi", new VideogiocoDAO().doRetrieveAll().size());
             request.setAttribute("totaleUtenti", new UtenteDAO().doRetrieveAll().size());

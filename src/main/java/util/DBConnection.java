@@ -6,21 +6,21 @@ import java.sql.SQLException;
 
 public class DBConnection {
 
-    // Parametri di configurazione del database
-    private static final String URL = "jdbc:mysql://localhost:3306/rotagames?serverTimezone=UTC";
-    private static final String USER = "root"; // Sostituisci con il tuo username di MySQL
-    private static final String PASSWORD = "root"; // Sostituisci con la tua password di MySQL
+    private static final String URL = "jdbc:mysql://localhost:3306/rotagames";
+    private static final String USER = "root"; 
+    private static final String PASSWORD = "root"; 
+    
     private static final String DRIVER_CLASS = "com.mysql.cj.jdbc.Driver";
 
     private static Connection connection = null;
-    // Il costruttore privato impedisce l'istanza diretta dall'esterno (Pattern Singleton)
+
     private DBConnection() {}
 
     public static Connection getConnection() {
         try {
             // Se la connessione non esiste o è stata precedentemente chiusa, la creiamo
             if (connection == null || connection.isClosed()) {
-                // Carichiamo esplicitamente il driver JDBC in memoria
+                // Carichiamo il driver JDBC in memoria
                 Class.forName(DRIVER_CLASS);
                 
                 // Stabiliamo la connessione attiva verso lo schema rotagames
@@ -37,7 +37,6 @@ public class DBConnection {
         return connection;
     }
 
-    // Metodo di utilità per chiudere la connessione alla chiusura dell'applicazione
     public static void closeConnection() {
         if (connection != null) {
             try {

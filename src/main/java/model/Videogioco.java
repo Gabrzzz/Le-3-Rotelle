@@ -10,6 +10,8 @@ public class Videogioco {
     private String requisitiSistema;
     private String statoApprovazione;
     private Integer idSviluppatore; // Usiamo Integer perché può essere NULL nel DB
+    private byte[] copertina;
+    private String base64Copertina;
 
     // Costruttore vuoto di default
     public Videogioco() {}
@@ -49,4 +51,11 @@ public class Videogioco {
         }
         return prezzoBase;
     }
+    
+    public byte[] getCopertina() { return copertina; }
+    public void setCopertina(byte[] copertina) { this.copertina = copertina; }
+
+    public String getBase64Copertina() { return base64Copertina; }
+    public void setBase64Copertina(String base64Copertina) { this.base64Copertina = base64Copertina;}
+    
 }

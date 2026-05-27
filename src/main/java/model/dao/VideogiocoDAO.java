@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import util.DBConnection;
+import java.util.Base64;
+import java.io.InputStream;
 
 public class VideogiocoDAO {
 
@@ -44,6 +46,13 @@ public class VideogiocoDAO {
                 if (!rs.wasNull()) {
                     gioco.setIdSviluppatore(idSvil);
                 }
+                
+                java.sql.Blob blob = rs.getBlob("copertina");
+                if (blob != null) {
+                    byte[] imageBytes = blob.getBytes(1, (int) blob.length());
+                    String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+                    gioco.setBase64Copertina(base64Image);
+                }
 
                 lista.add(gioco);
             }
@@ -59,6 +68,39 @@ public class VideogiocoDAO {
             }
         }
         return lista;
+    }
+    
+    public Videogioco doRetrieveById(int id) {
+        Videogioco gioco = null;
+        String query = "SELECT * FROM videogioco WHERE id_videogioco = ?";
+        
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                gioco = new Videogioco();
+                gioco.setIdVideogioco(rs.getInt("id_videogioco"));
+                gioco.setTitolo(rs.getString("titolo"));
+                gioco.setPrezzoBase(rs.getDouble("prezzo_base"));
+                gioco.setScontoAttivo(rs.getInt("sconto_attivo"));
+                gioco.setDescrizione(rs.getString("descrizione"));
+                gioco.setPiattaforma(rs.getString("piattaforma"));
+                
+                // --- LETTURA COPERTINA BLOB ---
+                java.sql.Blob blob = rs.getBlob("copertina");
+                if (blob != null && blob.length() > 0) {
+                    byte[] imageBytes = blob.getBytes(1, (int) blob.length());
+                    String base64Image = java.util.Base64.getEncoder().encodeToString(imageBytes);
+                    gioco.setBase64Copertina(base64Image);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return gioco;
     }
     
     /**
@@ -155,7 +197,7 @@ public class VideogiocoDAO {
                 if (!rs.wasNull()) {
                     gioco.setIdSviluppatore(idSvil);
                 }
-
+                
                 lista.add(gioco);
             }
         } catch (SQLException e) {
@@ -198,6 +240,21 @@ public class VideogiocoDAO {
             }
         }
         return rows > 0;
+    }
+    
+    public void aggiornaCopertina(int idVideogioco, InputStream fileStream) {
+        // Usiamo InputStream direttamente, è più pulito per JDBC
+        String query = "UPDATE videogioco SET copertina = ? WHERE id_videogioco = ?";
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            
+            ps.setBlob(1, fileStream);
+            ps.setInt(2, idVideogioco);
+            ps.executeUpdate();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
 }

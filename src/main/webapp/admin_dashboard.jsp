@@ -222,51 +222,95 @@
                     <% } %>
                 </tbody>
             </table>
+            
+            <div class="form-container" style="margin-top: 30px;">
+			    <h3 style="color: #00E5FF;">Carica Copertina Gioco</h3>
+			    
+			    <%-- L'attributo enctype è OBBLIGATORIO per i file --%>
+			    <form action="UploadCopertinaServlet" method="post" enctype="multipart/form-data">
+			        
+			        <label for="idGioco" style="color: #A0B0C8;">ID del Gioco:</label>
+			        <input type="number" name="idVideogioco" required placeholder="Es. 1">
+			        
+			        <label style="color: #A0B0C8; display: block; margin-top: 15px;">Seleziona Immagine (.jpg, .png):</label>
+			        <input type="file" name="copertina_file" accept="image/png, image/jpeg" required style="background: #030D1A; padding: 10px; border: 1px dashed #00E5FF;">
+			        
+			        <input type="submit" value="Carica Immagine 🚀">
+			    </form>
+			</div>
         <% } %>
 
         <%-- TAB 3: INTERFACCIA E-COMMERCE (ORDINI FILTRATI PER DATA E CLIENTE) --%>
         <% if ("ordini".equals(activeTab)) { %>
             <div class="form-box" style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
                 <h3 style="color:#00E5FF; margin:0; flex:1; min-width: 200px;">Strumenti di Filtro Ricevute:</h3>
-                <input type="text" id="txtCliente" placeholder="Filtra per Email Cliente..." onkeyup="eseguiFiltro()" style="width:280px; margin:0;">
+                <%-- Ho cambiato il placeholder da "Email" a "Cliente" visto che ora usiamo il nickname --%>
+                <input type="text" id="txtCliente" placeholder="Filtra per Cliente..." onkeyup="eseguiFiltro()" style="width:280px; margin:0;">
                 <input type="date" id="dateOrdine" onchange="eseguiFiltro()" style="width:200px; margin:0;">
             </div>
 
             <table id="tblRicevute">
                 <thead>
-                    <tr><th>Codice Ordine</th><th>Contatto Cliente</th><th>Data Ricevuta</th><th>Importo Complessivo</th></tr>
+                    <tr>
+                        <th>Codice Ordine</th>
+                        <th>Cliente</th>
+                        <th>Data Ricevuta</th>
+                        <th>Importo Complessivo</th>
+                        <th>Fattura PDF</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <% 
-                        List<Ordine> ordini = (List<Ordine>) request.getAttribute("listaOrdini");
-                        if(ordini != null && !ordini.isEmpty()) { for(Ordine o : ordini) { 
+                        java.util.List<model.Ordine> ordini = (java.util.List<model.Ordine>) request.getAttribute("listaOrdini");
+                        if(ordini != null && !ordini.isEmpty()) { 
+                            for(model.Ordine o : ordini) { 
+                                // Genero la data formattata all'italiana per l'utente, e all'americana per il filtro JS
+                                String rawDate = (o.getDataOrdine() != null) ? new java.text.SimpleDateFormat("yyyy-MM-dd").format(o.getDataOrdine()) : "";
+                                String displayDate = (o.getDataOrdine() != null) ? new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(o.getDataOrdine()) : "N/D";
                     %>
                     <tr class="riga-ordine-reale">
-                        <td>#<%= o.getIdOrdine() %></td>
-                        <td class="campo-email-cliente" style="font-weight: bold;"><%= o.getEmailCliente() %></td>
-                        <td class="campo-data-ordine"><%= new java.text.SimpleDateFormat("yyyy-MM-dd").format(o.getDataOrdine()) %></td>
-                        <td style="color:#00FF7F; font-weight:bold;"><%= String.format("%.2f", o.getPrezzoTotale()) %> €</td>
+                        <td style="color: #00E5FF; font-weight: bold;">#<%= o.getIdOrdine() %></td>
+                        <td class="campo-email-cliente">👤 <%= o.getNicknameUtente() %></td>
+                        
+                        <%-- Inserisco la rawDate in un attributo nascosto per facilitare la vita a JavaScript --%>
+                        <td class="campo-data-ordine" data-raw-date="<%= rawDate %>"><%= displayDate %></td>
+                        
+                        <td style="color:#00FF7F; font-weight:bold;"><%= String.format("%.2f", o.getTotaleOrdine()) %> €</td>
+                        <td>
+                            <% if (o.getUrlFattura() != null && !o.getUrlFattura().isEmpty()) { %>
+                                <a href="<%= request.getContextPath() %><%= o.getUrlFattura() %>" target="_blank" style="color: #00E5FF; text-decoration: none;">📄 Apri PDF</a>
+                            <% } else { %>
+                                <span style="color: #5C6F8E;">Non disp.</span>
+                            <% } %>
+                        </td>
                     </tr>
-                    <% } } else { %>
-                        <tr><td colspan="4" style="text-align:center; color:#A0B0C8;">Nessuna transazione commerciale registrata nel DB.</td></tr>
+                    <% 
+                            } 
+                        } else { 
+                    %>
+                        <tr><td colspan="5" style="text-align:center; color:#A0B0C8;">Nessuna transazione registrata nel DB.</td></tr>
                     <% } %>
                 </tbody>
             </table>
 
             <script>
                 function eseguiFiltro() {
-                    let mailInput = document.getElementById("txtCliente").value.toLowerCase();
-                    let dataInput = document.getElementById("dateOrdine").value;
-                    let record Ordini = document.getElementsByClassName("riga-ordine-reale");
+                    let textInput = document.getElementById("txtCliente").value.toLowerCase();
+                    let dataInput = document.getElementById("dateOrdine").value; // Questo arriva in formato YYYY-MM-DD
+                    
+                    // Errore di sintassi risolto: rimosso lo spazio da "record Ordini"
+                    let recordOrdini = document.getElementsByClassName("riga-ordine-reale");
 
                     for (let i = 0; i < recordOrdini.length; i++) {
-                        let emailTesto = recordOrdini[i].getElementsByClassName("campo-email-cliente")[0].innerText.toLowerCase();
-                        let dataTesto = recordOrdini[i].getElementsByClassName("campo-data-ordine")[0].innerText;
+                        let clienteTesto = recordOrdini[i].getElementsByClassName("campo-email-cliente")[0].innerText.toLowerCase();
                         
-                        let matchEmail = emailTesto.includes(mailInput);
-                        let matchData = (dataInput === "" || dataTesto.includes(dataInput));
+                        // Ora Javascript legge l'attributo invisibile invece del testo formattato
+                        let rawDate = recordOrdini[i].getElementsByClassName("campo-data-ordine")[0].getAttribute("data-raw-date");
                         
-                        if (matchEmail && matchData) {
+                        let matchTesto = clienteTesto.includes(textInput);
+                        let matchData = (dataInput === "" || rawDate === dataInput);
+                        
+                        if (matchTesto && matchData) {
                             recordOrdini[i].style.display = "";
                         } else {
                             recordOrdini[i].style.display = "none";

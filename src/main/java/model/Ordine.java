@@ -3,11 +3,14 @@ package model;
 import java.sql.Timestamp;
 
 public class Ordine {
-    private int idOrdine;
-    private Timestamp dataOrdine;
-    private double prezzoTotale;
-    private String emailCliente; // Ricavata con una JOIN per la plancia admin
-
+	private int idOrdine;
+    private double totaleOrdine;
+    private String urlFattura;
+    private Timestamp dataOrdine; // Assumendo che ci sia un DEFAULT CURRENT_TIMESTAMP nel DB
+    private int idUtente;
+    
+    private String nicknameUtente;
+    
     public Ordine() {}
 
     public int getIdOrdine() { return idOrdine; }
@@ -16,9 +19,15 @@ public class Ordine {
     public Timestamp getDataOrdine() { return dataOrdine; }
     public void setDataOrdine(Timestamp dataOrdine) { this.dataOrdine = dataOrdine; }
 
-    public double getPrezzoTotale() { return prezzoTotale; }
-    public void setPrezzoTotale(double prezzoTotale) { this.prezzoTotale = prezzoTotale; }
+    public double getTotaleOrdine() { return totaleOrdine; }
+    public void setTotaleOrdine(double totaleOrdine) { this.totaleOrdine = totaleOrdine; }
 
-    public String getEmailCliente() { return emailCliente; }
-    public void setEmailCliente(String emailCliente) { this.emailCliente = emailCliente; }
+    public int getIdUtente() { return idUtente; }
+    public void setIdUtente(int idUtente) { this.idUtente = idUtente; }
+
+    public String getUrlFattura() { return urlFattura; }
+    public void setUrlFattura(String urlFattura) { this.urlFattura = urlFattura; }
+    
+    public String getNicknameUtente() { return nicknameUtente; }
+    public void setNicknameUtente(String nicknameUtente) { this.nicknameUtente = nicknameUtente; }
 }
