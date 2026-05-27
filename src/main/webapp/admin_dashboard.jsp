@@ -13,54 +13,8 @@
 <meta charset="UTF-8">
 <title>Pannello Amministrativo - RotaGames</title>
 <link rel="stylesheet" type="text/css" href="css/style.css">
-<style>
-    body { margin: 0; display: flex; height: 100vh; overflow: hidden; background-color: #04142C; color: #fff; }
-    
-    /* Layout Sidebar */
-    .sidebar { width: 260px; background-color: #112A54; padding: 20px 0; border-right: 2px solid #00E5FF; display: flex; flex-direction: column; }
-    .sidebar-header { text-align: center; padding-bottom: 20px; border-bottom: 1px solid #04142C; margin-bottom: 20px; }
-    .sidebar-header h2 { color: #00E5FF; margin: 0; font-size: 1.4em; letter-spacing: 1px; }
-    .nav-link { padding: 15px 20px; color: #A0B0C8; text-decoration: none; font-weight: bold; display: block; border-left: 4px solid transparent; transition: all 0.3s; }
-    .nav-link:hover, .nav-link.active { background-color: #04142C; color: #00E5FF; border-left: 4px solid #00E5FF; }
-    
-    /* Area Contenuti */
-    .main-content { flex: 1; padding: 40px; overflow-y: auto; box-sizing: border-box; }
-    .header-bar { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #112A54; padding-bottom: 20px; margin-bottom: 30px; }
-    
-    /* Tabelle strutturate */
-    table { width: 100%; border-collapse: collapse; background-color: #112A54; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.3); margin-top: 15px; }
-    th { background-color: #00E5FF; color: #04142C; padding: 12px; text-align: left; font-weight: bold; }
-    td { padding: 12px; border-bottom: 1px solid #04142C; color: #FFFFFF; }
-    tr:hover { background-color: #0c2042; }
-    
-    .btn-delete { background-color: #FF4444; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-    .btn-delete:hover { background-color: #CC0000; }
-    
-    /* Box del Formulario */
-    .form-box { background-color: #112A54; padding: 25px; border-radius: 8px; border-top: 3px solid #00E5FF; margin-bottom: 30px; }
-    .form-box h3 { color: #00E5FF; margin-top: 0; margin-bottom: 20px; }
-    .form-group { margin-bottom: 15px; }
-    .form-group label { display: block; color: #A0B0C8; font-size: 0.9em; margin-bottom: 5px; font-weight: bold; }
-    .form-box input[type="text"], .form-box input[type="number"], .form-box textarea { width: 100%; padding: 10px; border: 1px solid #0088CC; background-color: #04142C; color: #fff; border-radius: 4px; box-sizing: border-box; }
-    
-    /* Checkbox Allineati */
-    .checkbox-group { display: flex; gap: 15px; flex-wrap: wrap; background-color: #04142C; padding: 10px; border-radius: 4px; border: 1px solid #0088CC; }
-    .checkbox-item { display: flex; align-items: center; gap: 5px; color: #fff; font-size: 0.9em; }
-    
-    /* Griglia input requisiti */
-    .req-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    
-    .btn-submit { background-color: #00E5FF; color: #04142C; padding: 12px 20px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; letter-spacing: 1px; }
-    .btn-submit:hover { background-color: #0088CC; color: #fff; }
-    
-    /* Schede Statistiche */
-    .stats-grid { display: flex; gap: 20px; }
-    .stat-card { flex: 1; background-color: #112A54; padding: 25px; border-radius: 8px; border-left: 4px solid #00E5FF; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-    .stat-card h3 { color: #A0B0C8; font-size: 0.95em; margin-top: 0; text-transform: uppercase; }
-    .stat-card .num { font-size: 2.8em; color: #00E5FF; font-weight: bold; margin-top: 5px; }
-</style>
 </head>
-<body>
+<body class="admin-body">
 
     <aside class="sidebar">
         <div class="sidebar-header">
@@ -149,7 +103,7 @@
                         </div>
                     </div>
 
-                    <%-- Nuova sezione per impostare lo stato iniziale del gioco --%>
+                    <%-- Sezione per impostare lo stato iniziale del gioco --%>
                     <div class="form-group">
                         <label>Stato di Pubblicazione Iniziale</label>
                         <select name="statoApprovazione" style="width: 100%; padding: 10px; border: 1px solid #0088CC; background-color: #04142C; color: #fff; border-radius: 4px; box-sizing: border-box;">
@@ -170,7 +124,7 @@
                         <th>Titolo</th>
                         <th>Prezzo</th>
                         <th>Piattaforme</th>
-                        <th>Stato Catalogo</th> <%-- Nuova colonna --%>
+                        <th>Stato Catalogo</th> 
                         <th>Operazione</th>
                     </tr>
                 </thead>
@@ -194,10 +148,10 @@
                             <% } %>
                         </td>
                         
-                        <%-- Colonna Operazioni Aggiornata --%>
+                        
                         <td>
                             <div style="display: flex; gap: 8px; align-items: center;">
-                                <%-- Se il gioco è in attesa, l'admin può approvarlo al volo con un click --%>
+                                <%-- Se il gioco è in attesa, l'admin può approvarlo --%>
                                 <% if("IN_ATTESA".equals(g.getStatoApprovazione())) { %>
                                     <form action="AdminDashboardServlet" method="post" style="margin:0;">
                                         <input type="hidden" name="azione" value="approvaGioco">
@@ -226,7 +180,6 @@
             <div class="form-container" style="margin-top: 30px;">
 			    <h3 style="color: #00E5FF;">Carica Copertina Gioco</h3>
 			    
-			    <%-- L'attributo enctype è OBBLIGATORIO per i file --%>
 			    <form action="UploadCopertinaServlet" method="post" enctype="multipart/form-data">
 			        
 			        <label for="idGioco" style="color: #A0B0C8;">ID del Gioco:</label>
@@ -244,7 +197,6 @@
         <% if ("ordini".equals(activeTab)) { %>
             <div class="form-box" style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
                 <h3 style="color:#00E5FF; margin:0; flex:1; min-width: 200px;">Strumenti di Filtro Ricevute:</h3>
-                <%-- Ho cambiato il placeholder da "Email" a "Cliente" visto che ora usiamo il nickname --%>
                 <input type="text" id="txtCliente" placeholder="Filtra per Cliente..." onkeyup="eseguiFiltro()" style="width:280px; margin:0;">
                 <input type="date" id="dateOrdine" onchange="eseguiFiltro()" style="width:200px; margin:0;">
             </div>
@@ -264,7 +216,6 @@
                         java.util.List<model.Ordine> ordini = (java.util.List<model.Ordine>) request.getAttribute("listaOrdini");
                         if(ordini != null && !ordini.isEmpty()) { 
                             for(model.Ordine o : ordini) { 
-                                // Genero la data formattata all'italiana per l'utente, e all'americana per il filtro JS
                                 String rawDate = (o.getDataOrdine() != null) ? new java.text.SimpleDateFormat("yyyy-MM-dd").format(o.getDataOrdine()) : "";
                                 String displayDate = (o.getDataOrdine() != null) ? new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format(o.getDataOrdine()) : "N/D";
                     %>
@@ -272,7 +223,6 @@
                         <td style="color: #00E5FF; font-weight: bold;">#<%= o.getIdOrdine() %></td>
                         <td class="campo-email-cliente">👤 <%= o.getNicknameUtente() %></td>
                         
-                        <%-- Inserisco la rawDate in un attributo nascosto per facilitare la vita a JavaScript --%>
                         <td class="campo-data-ordine" data-raw-date="<%= rawDate %>"><%= displayDate %></td>
                         
                         <td style="color:#00FF7F; font-weight:bold;"><%= String.format("%.2f", o.getTotaleOrdine()) %> €</td>
@@ -296,15 +246,13 @@
             <script>
                 function eseguiFiltro() {
                     let textInput = document.getElementById("txtCliente").value.toLowerCase();
-                    let dataInput = document.getElementById("dateOrdine").value; // Questo arriva in formato YYYY-MM-DD
+                    let dataInput = document.getElementById("dateOrdine").value; //formato YYYY-MM-DD
                     
-                    // Errore di sintassi risolto: rimosso lo spazio da "record Ordini"
                     let recordOrdini = document.getElementsByClassName("riga-ordine-reale");
 
                     for (let i = 0; i < recordOrdini.length; i++) {
                         let clienteTesto = recordOrdini[i].getElementsByClassName("campo-email-cliente")[0].innerText.toLowerCase();
                         
-                        // Ora Javascript legge l'attributo invisibile invece del testo formattato
                         let rawDate = recordOrdini[i].getElementsByClassName("campo-data-ordine")[0].getAttribute("data-raw-date");
                         
                         let matchTesto = clienteTesto.includes(textInput);

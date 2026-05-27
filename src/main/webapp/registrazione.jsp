@@ -25,10 +25,10 @@
             <input type="text" name="cognome" placeholder="Cognome" required>
             <input type="text" name="nickname" placeholder="Nickname" required>
             
-            <%-- Il type="email" di default fa già un controllo sulla presenza della @ --%>
+            <%-- Controllo presenza @ --%>
             <input type="email" name="email" placeholder="Email" required>
             
-            <%-- Impostiamo vincoli stringenti: min 6, max 20 caratteri --%>
+            <%-- Vincoli password: min 6, max 20 caratteri --%>
             <input type="password" name="password" placeholder="Password (6-20 caratteri)" minlength="6" maxlength="20" required>
             
             <input type="submit" value="REGISTRATI">

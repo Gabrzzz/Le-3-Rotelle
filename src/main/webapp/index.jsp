@@ -102,7 +102,7 @@
                     </form>
                 </div>
                 
-            </div> <%-- Fine della .game-card --%>
+            </div> 
         <% 
                 }
             } else {

@@ -6,7 +6,6 @@
     Utente utenteLoggato = (Utente) session.getAttribute("utenteLoggato");
     Videogioco gioco = (Videogioco) request.getAttribute("giocoDettaglio");
     
-    // Sicurezza: se uno digita l'URL a mano senza passare dalla Servlet, lo rimbalziamo alla home
     if (gioco == null) {
         response.sendRedirect("index.jsp");
         return;
@@ -130,7 +129,7 @@
                 <div class="review-header">
                     <span class="review-author">👤 <%= rec.getNicknameUtente() %></span>
                     <span class="review-score">
-                        <%-- Stampa le stelline in base al voto (es. da 1 a 5) --%>
+                        <%-- Stampa le stelle in base al voto (es. da 1 a 5) --%>
                         Voto: <%= rec.getVoto() %>/5 ⭐
                     </span>
                 </div>
