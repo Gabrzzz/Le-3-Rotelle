@@ -22,7 +22,7 @@ public class VideogiocoDAO {
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        // Selezioniamo solo i giochi approvati per la vendita generale
+        // Selezioniamo solo i giochi approvati dall'admin per la vendita generale
         String query = "SELECT * FROM Videogioco WHERE stato_approvazione = 'APPROVED' OR stato_approvazione = 'APPROVATO'";
 
         try {
@@ -72,7 +72,7 @@ public class VideogiocoDAO {
     
     public Videogioco doRetrieveById(int id) {
         Videogioco gioco = null;
-        String query = "SELECT * FROM videogioco WHERE id_videogioco = ?";
+        String query = "SELECT * FROM videogioco WHERE id_videogioco = ?"
         
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
@@ -89,7 +89,6 @@ public class VideogiocoDAO {
                 gioco.setDescrizione(rs.getString("descrizione"));
                 gioco.setPiattaforma(rs.getString("piattaforma"));
                 
-                // --- LETTURA COPERTINA BLOB ---
                 java.sql.Blob blob = rs.getBlob("copertina");
                 if (blob != null && blob.length() > 0) {
                     byte[] imageBytes = blob.getBytes(1, (int) blob.length());
@@ -103,9 +102,7 @@ public class VideogiocoDAO {
         return gioco;
     }
     
-    /**
-     * Salva un nuovo videogioco nel database.
-     */
+    // Salvataggio nuovo gioco nel database
     public synchronized void doSave(Videogioco gioco) {
         Connection conn = null;
         PreparedStatement ps = null;

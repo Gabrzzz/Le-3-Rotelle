@@ -6,7 +6,7 @@ public class Ordine {
 	private int idOrdine;
     private double totaleOrdine;
     private String urlFattura;
-    private Timestamp dataOrdine; // Assumendo che ci sia un DEFAULT CURRENT_TIMESTAMP nel DB
+    private Timestamp dataOrdine;
     private int idUtente;
     
     private String nicknameUtente;

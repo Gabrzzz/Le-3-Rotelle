@@ -15,7 +15,7 @@ public class OrdineDAO {
     public List<Ordine> doRetrieveAllForAdmin() {
         List<Ordine> ordini = new ArrayList<>();
         
-        // JOIN per unire i dati dell'ordine al nickname del cliente
+        // ordinare i  dati dal nickname del cliente
         String query = "SELECT o.id_ordine, o.totale_ordine, o.url_fattura, o.data_acquisto, o.id_utente, u.nickname " +
                        "FROM Ordine o " +
                        "JOIN Utente u ON o.id_utente = u.id_utente " +
@@ -32,10 +32,8 @@ public class OrdineDAO {
                 ordine.setUrlFattura(rs.getString("url_fattura"));
                 ordine.setIdUtente(rs.getInt("id_utente"));
                 
-                // Mappiamo il campo extra preso dalla JOIN
                 ordine.setNicknameUtente(rs.getString("nickname"));
                 
-                // Gestione sicura della data (nel caso in cui non l'abbiate messa obbligatoria nel DB)
                 try {
                     ordine.setDataOrdine(rs.getTimestamp("data_acquisto"));
                 } catch (SQLException e) {

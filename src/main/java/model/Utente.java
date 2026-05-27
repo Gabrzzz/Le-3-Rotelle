@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class Utente {
 
-    // --- 1. Attributi (Mappatura delle colonne del DB) ---
     private int idUtente;
     private String email;
     private String nome;
@@ -16,23 +15,19 @@ public class Utente {
     private String citta;
     
     // Dati di accesso e profilo
-    private String ruolo; // 'GUEST', 'REGISTRATO', 'AMMINISTRATORE', 'SVILUPPATORE'
+    private String ruolo; // sviluppatore, admin oppure utente
     private String nickname;
     private String passwordHash;
     private int saldoRotelline;
     private Date dataUltimoGiroRuota;
     private String generePreferito;
+    private String nomeStudioSviluppo; // Attributo specifico per gli sviluppatori
     
-    // Attributo specifico per gli sviluppatori
-    private String nomeStudioSviluppo;
-
-    // --- 2. Costruttori ---
-    
-    // Costruttore vuoto (obbligatorio per i JavaBeans e per recuperare dati dal DB)
+    // Costruttore vuoto
     public Utente() {
     }
 
-    // Costruttore completo (utile quando si crea un nuovo utente da codice)
+    // Costruttore completo
     public Utente(int idUtente, String email, String nome, String cognome, String via, String cap,
             String citta, String ruolo, String nickname, String passwordHash, int saldoRotelline,
             Date dataUltimoGiroRuota, String generePreferito, String nomeStudioSviluppo) {
@@ -51,9 +46,6 @@ public class Utente {
         this.generePreferito = generePreferito;
         this.nomeStudioSviluppo = nomeStudioSviluppo;
     }
-
-    // --- 3. Metodi Getter e Setter ---
-    // Questi metodi permettono di leggere e scrivere i valori in modo sicuro
 
     public int getIdUtente() {
         return idUtente;
@@ -167,7 +159,6 @@ public class Utente {
         this.nomeStudioSviluppo = nomeStudioSviluppo;
     }
 
-    // Metodo toString() opzionale ma comodissimo per fare test in console
     @Override
     public String toString() {
         return "Utente [idUtente=" + idUtente + ", email=" + email + ", nickname=" + nickname + ", ruolo=" + ruolo + "]";

@@ -29,11 +29,11 @@ public class AdminDashboardServlet extends HttpServlet {
         if (tab == null) tab = "statistiche";
         request.setAttribute("activeTab", tab);
 
-        // Caricamento selettivo dei dati in base al ruolo dell'interfaccia
+        // Caricamento dati in base al ruolo dell'utente (admin, registrato oppure sviluppatore)
         if ("utenti".equals(tab)) {
             request.setAttribute("listaUtenti", new UtenteDAO().doRetrieveAll());
         } else if ("catalogo".equals(tab)) {
-            // Usiamo il metodo completo per l'amministrazione
+            // Filtro dei dati in base al ruolo dell'utente
             request.setAttribute("listaVideogiochi", new VideogiocoDAO().doRetrieveAllForAdmin());
         } else if ("ordini".equals(tab)) {
             request.setAttribute("listaOrdini", new OrdineDAO().doRetrieveAllForAdmin());
@@ -59,18 +59,18 @@ public class AdminDashboardServlet extends HttpServlet {
 
         try {
             if ("aggiungiGioco".equals(azione)) {
-                // 1. Recupero e formattazione dell'elenco delle piattaforme selezionate
+                // Inserimento piattaforma che supporta il gioco
                 String[] piazze = request.getParameterValues("piattaforme");
                 String piattaformeUnite = (piazze != null) ? String.join(", ", piazze) : "PC";
 
-                // 2. Recupero dei singoli campi dei requisiti di sistema richiesti
+                // Inserimento campi dei requisiti di sistema richiesti per il gioco
                 String os = request.getParameter("reqOS");
                 String cpu = request.getParameter("reqCPU");
                 String ram = request.getParameter("reqRAM");
                 String gpu = request.getParameter("reqGPU");
                 String requisitiFormattati = "OS: " + os + " | CPU: " + cpu + " | RAM: " + ram + " GB | GPU: " + gpu;
 
-                // 3. Creazione dell'oggetto Model
+                // Inserimento gioco (ogetto)
                 Videogioco nuovo = new Videogioco();
                 nuovo.setTitolo(request.getParameter("titolo"));
                 nuovo.setDescrizione(request.getParameter("descrizione"));
@@ -78,7 +78,7 @@ public class AdminDashboardServlet extends HttpServlet {
                 nuovo.setScontoAttivo(Integer.parseInt(request.getParameter("scontoAttivo")));
                 nuovo.setPiattaforma(piattaformeUnite);
                 nuovo.setRequisitiSistema(requisitiFormattati);
-             // Recupera lo stato direttamente dalla scelta effettuata dall'amministratore nel form
+             // Legge lo stato dal form impostato dall'amministratore
                 String statoSelezionato = request.getParameter("statoApprovazione");
                 nuovo.setStatoApprovazione(statoSelezionato != null ? statoSelezionato : "APPROVATO");
 
@@ -92,7 +92,6 @@ public class AdminDashboardServlet extends HttpServlet {
                 tabDiRitorno = "catalogo";
             } else if ("approvaGioco".equals(azione)) {
                 int id = Integer.parseInt(request.getParameter("idVideogioco"));
-                // Aggiorna lo stato impostandolo sul valore corretto per il DB
                 new VideogiocoDAO().doUpdateStatus(id, "APPROVATO");
                 tabDiRitorno = "catalogo";    
             } else if ("eliminaUtente".equals(azione)) {
@@ -103,7 +102,7 @@ public class AdminDashboardServlet extends HttpServlet {
                 tabDiRitorno = "utenti";
             }
         } catch (Exception e) {
-            // CRITICO: Stampa l'errore completo in console per individuare blocchi del DB
+            // Stampa l'errore per individuare falle
             System.err.println("❌ Errore durante l'operazione amministrativa:");
             e.printStackTrace();
         }

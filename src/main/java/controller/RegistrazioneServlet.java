@@ -21,22 +21,21 @@ public class RegistrazioneServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         
-        // --- CONTROLLI LATO SERVER ---
         // Controllo Password
         if (password == null || password.length() < 6 || password.length() > 20) {
             request.setAttribute("erroreReg", "Attenzione: La password deve avere tra i 6 e i 20 caratteri.");
             request.getRequestDispatcher("registrazione.jsp").forward(request, response);
-            return; // Interrompe l'esecuzione, non salva nel DB
+            return; // Interrompe l'esecuzione senza salvare nel database
         }
         
-        // Controllo Email (Verifica base tramite Regex)
+        // Controllo Email
         if (email == null || !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
             request.setAttribute("erroreReg", "Attenzione: Formato email non valido.");
             request.getRequestDispatcher("registrazione.jsp").forward(request, response);
             return;
         }
 
-        // Se passa i controlli, creiamo l'oggetto
+        // creazione dell'utente (ogetto)
         Utente nuovoUtente = new Utente();
         nuovoUtente.setNome(nome);
         nuovoUtente.setCognome(cognome);
@@ -45,11 +44,9 @@ public class RegistrazioneServlet extends HttpServlet {
         nuovoUtente.setPasswordHash(password);
         nuovoUtente.setRuolo("REGISTRATO"); 
         
-        // Salvataggio nel DB
         UtenteDAO dao = new UtenteDAO();
         dao.doSave(nuovoUtente);
         
-        // Reindirizzamento al login con parametro di successo
         response.sendRedirect("login.jsp?successo=true");
     }
 }

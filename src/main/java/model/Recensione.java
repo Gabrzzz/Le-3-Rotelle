@@ -5,15 +5,13 @@ import java.sql.Timestamp;
 public class Recensione {
     private int idRecensione;
     private int idVideogioco;
-    private String nicknameUtente; // Chi ha scritto la recensione
-    private int voto; // Da 1 a 10 (o da 1 a 5, in base a come l'avete definito)
+    private String nicknameUtente;
+    private int voto; // il voto va da 1 a 5
     private String testo;
     private Timestamp dataCreazione;
 
-    // Costruttore vuoto
     public Recensione() {}
 
-    // Getter e Setter
     public int getIdRecensione() { return idRecensione; }
     public void setIdRecensione(int idRecensione) { this.idRecensione = idRecensione; }
 

@@ -9,14 +9,13 @@ public class Videogioco {
     private String piattaforma;
     private String requisitiSistema;
     private String statoApprovazione;
-    private Integer idSviluppatore; // Usiamo Integer perché può essere NULL nel DB
+    private Integer idSviluppatore;
     private byte[] copertina;
     private String base64Copertina;
 
-    // Costruttore vuoto di default
+    // Costruttore vuoto
     public Videogioco() {}
 
-    // Getter e Setter
     public int getIdVideogioco() { return idVideogioco; }
     public void setIdVideogioco(int idVideogioco) { this.idVideogioco = idVideogioco; }
 
@@ -44,7 +43,7 @@ public class Videogioco {
     public Integer getIdSviluppatore() { return idSviluppatore; }
     public void setIdSviluppatore(Integer idSviluppatore) { this.idSviluppatore = idSviluppatore; }
 
-    // Metodo di utilità per calcolare al volo il prezzo scontato
+    // Metodo per calcolare il prezzo scontato
     public double getPrezzoFinale() {
         if (scontoAttivo > 0) {
             return prezzoBase - (prezzoBase * scontoAttivo / 100.0);

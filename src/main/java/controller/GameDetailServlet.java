@@ -21,16 +21,15 @@ public class GameDetailServlet extends HttpServlet {
             try {
                 int id = Integer.parseInt(idParam);
                 
-                // 1. Pesco il Gioco
+                // recupero gioco dal database
                 VideogiocoDAO daoGioco = new VideogiocoDAO();
                 Videogioco gioco = daoGioco.doRetrieveById(id);
                 
                 if (gioco != null) {
-                    // 2. Pesco le Recensioni di questo gioco
+                    // recupero recensioni legate al gioco
                     model.dao.RecensioneDAO daoRecensioni = new model.dao.RecensioneDAO();
                     java.util.List<model.Recensione> recensioni = daoRecensioni.doRetrieveByVideogioco(id);
                     
-                    // 3. Spedisco tutto alla JSP
                     request.setAttribute("giocoDettaglio", gioco);
                     request.setAttribute("listaRecensioni", recensioni);
                     

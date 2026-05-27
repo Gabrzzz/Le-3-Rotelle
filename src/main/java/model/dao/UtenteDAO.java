@@ -12,17 +12,14 @@ import util.DBConnection;
 
 public class UtenteDAO {
 
-    /**
-     * Metodo per effettuare il login.
-     * Cerca un utente nel DB tramite email e password.
-     */
+    // Cerca un utente nel database tramite email e password. (login)
     public synchronized Utente doRetrieveByEmailAndPassword(String email, String passwordHash) {
         Utente utente = null;
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
 
-        // Query SQL per cercare l'utente
+        // ricerca dell'utente
         String query = "SELECT * FROM Utente WHERE email = ? AND password_hash = ?";
 
         try {
@@ -33,7 +30,6 @@ public class UtenteDAO {
 
             rs = ps.executeQuery();
 
-            // Se troviamo una corrispondenza, popoliamo il nostro bean (Model)
             if (rs.next()) {
                 utente = new Utente();
                 utente.setIdUtente(rs.getInt("id_utente"));
@@ -55,7 +51,6 @@ public class UtenteDAO {
         } catch (SQLException e) {
             System.err.println("Errore in doRetrieveByEmailAndPassword: " + e.getMessage());
         } finally {
-            // È fondamentale chiudere Statement e ResultSet per liberare memoria
             try {
                 if (rs != null) rs.close();
                 if (ps != null) ps.close();
@@ -64,7 +59,7 @@ public class UtenteDAO {
             }
         }
 
-        return utente; // Ritorna null se l'utente non viene trovato
+        return utente; // se l'utente non viene trovato
     }
 
     /**
@@ -84,11 +79,11 @@ public class UtenteDAO {
             ps.setString(1, utente.getEmail());
             ps.setString(2, utente.getNome());
             ps.setString(3, utente.getCognome());
-            // Se il ruolo non è settato, impostiamo "REGISTRATO" come default
+            // Di base il ruolo è impostato come default come: REGISTRATO
             ps.setString(4, utente.getRuolo() != null ? utente.getRuolo() : "REGISTRATO");
             ps.setString(5, utente.getNickname());
             ps.setString(6, utente.getPasswordHash());
-            ps.setInt(7, 0); // Il saldo iniziale delle rotelline è sempre 0
+            ps.setInt(7, 0); // Il saldo iniziale delle rotelline è 0
 
             ps.executeUpdate();
 
