@@ -17,7 +17,7 @@
 <head>
 <meta charset="UTF-8">
 <title>La mia Libreria - RotaGames</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css?v=2.0">
 </head>
 <body>
 
