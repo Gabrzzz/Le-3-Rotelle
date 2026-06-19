@@ -470,3 +470,77 @@ header h1 {
 .stat-card { flex: 1; background-color: #112A54; padding: 25px; border-radius: 8px; border-left: 4px solid #00E5FF; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
 .stat-card h3 { color: #A0B0C8; font-size: 0.95em; margin-top: 0; text-transform: uppercase; }
 .stat-card .num { font-size: 2.8em; color: #00E5FF; font-weight: bold; margin-top: 5px; }
+/* =========================================
+   9. CARRELLO (carrello.jsp)
+   ========================================= */
+.cart-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background-color: #09172E;
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 229, 255, 0.2);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #112A54;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+.cart-item-info h3 {
+    margin: 0 0 5px 0;
+    color: #FFFFFF;
+}
+.cart-item-price {
+    color: #7FFFD4;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.cart-total {
+    text-align: right;
+    font-size: 1.5em;
+    color: #FFFFFF;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 229, 255, 0.2);
+}
+.btn-remove {
+    background-color: #FF4444;
+    color: #FFFFFF;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.btn-remove:hover {
+    background-color: #CC0000;
+}
+.btn-checkout {
+    background-color: #00E5FF;
+    color: #030D1A;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 1.1em;
+    cursor: pointer;
+    text-transform: uppercase;
+    width: 100%;
+    margin-top: 20px;
+    text-align: center;
+    display: block;
+    text-decoration: none;
+}
+.btn-checkout:hover {
+    background-color: #7FFFD4;
+}
+.empty-cart {
+    text-align: center;
+    color: #A0B0C8;
+    padding: 40px;
+}

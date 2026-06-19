@@ -16,6 +16,7 @@ public class OrdineDAO {
         Connection con = null;
         PreparedStatement psOrdine = null;
         PreparedStatement psComposizione = null;
+        PreparedStatement psLibreria = null;
         ResultSet rs = null;
         try {
             con = DBConnection.getConnection();
@@ -38,29 +39,24 @@ public class OrdineDAO {
                 String insertComposizione = "INSERT INTO composizione (id_ordine, id_videogioco, prezzo_acquisto, product_key) VALUES (?, ?, ?, ?)";
                 psComposizione = con.prepareStatement(insertComposizione);
 
+                String insertLibreria = "INSERT INTO libreria (id_utente, id_videogioco, stato_avanzamento, product_key_posseduta) VALUES (?, ?, ?, ?)";
+                psLibreria = con.prepareStatement(insertLibreria);
+
                 for (model.Videogioco v : carrello) {
+                    String productKey = java.util.UUID.randomUUID().toString();
+
                     psComposizione.setInt(1, idOrdine);
                     psComposizione.setInt(2, v.getIdVideogioco());
                     double prezzoScontato = v.getPrezzoBase() - (v.getPrezzoBase() * v.getScontoAttivo() / 100.0);
                     psComposizione.setDouble(3, prezzoScontato);
-                    psComposizione.setString(4, java.util.UUID.randomUUID().toString());
+                    psComposizione.setString(4, productKey);
                     psComposizione.executeUpdate();
-                }
 
-                PreparedStatement psLibreria = null;
-                try {
-                    String insertLibreria = "INSERT INTO libreria (id_utente, id_videogioco, stato_avanzamento, product_key_posseduta) VALUES (?, ?, ?, ?)";
-                    psLibreria = con.prepareStatement(insertLibreria);
-                    for (model.Videogioco v : carrello) {
-                        psLibreria.setInt(1, ordine.getIdUtente());
-                        psLibreria.setInt(2, v.getIdVideogioco());
-                        psLibreria.setString(3, "Da giocare");
-                        psLibreria.setString(4, java.util.UUID.randomUUID().toString());
-                        psLibreria.executeUpdate();
-                    }
-                } finally {
-                    if (psLibreria != null) psLibreria.close();
-
+                    psLibreria.setInt(1, ordine.getIdUtente());
+                    psLibreria.setInt(2, v.getIdVideogioco());
+                    psLibreria.setString(3, "DA_GIOCARE");
+                    psLibreria.setString(4, productKey);
+                    psLibreria.executeUpdate();
                 }
             }
 
@@ -77,6 +73,7 @@ public class OrdineDAO {
         } finally {
             try {
                 if (rs != null) rs.close();
+                if (psLibreria != null) psLibreria.close();
                 if (psComposizione != null) psComposizione.close();
                 if (psOrdine != null) psOrdine.close();
                 if (con != null) { con.setAutoCommit(true); con.close(); }
