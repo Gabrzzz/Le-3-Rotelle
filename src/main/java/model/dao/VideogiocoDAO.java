@@ -72,7 +72,7 @@ public class VideogiocoDAO {
     
     public Videogioco doRetrieveById(int id) {
         Videogioco gioco = null;
-        String query = "SELECT * FROM videogioco WHERE id_videogioco = ?"
+        String query = "SELECT * FROM videogioco WHERE id_videogioco = ?";
         
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {

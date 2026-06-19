@@ -1,0 +1,1 @@
+The project compiles with javax.servlet-api provided in WEB-INF/lib to allow compilation with javac in the environment without bringing a full Maven build system yet. Before deploying to Tomcat, this jar might need to be excluded.

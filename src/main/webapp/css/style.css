@@ -470,3 +470,266 @@ header h1 {
 .stat-card { flex: 1; background-color: #112A54; padding: 25px; border-radius: 8px; border-left: 4px solid #00E5FF; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
 .stat-card h3 { color: #A0B0C8; font-size: 0.95em; margin-top: 0; text-transform: uppercase; }
 .stat-card .num { font-size: 2.8em; color: #00E5FF; font-weight: bold; margin-top: 5px; }
+/* =========================================
+   9. CARRELLO (carrello.jsp)
+   ========================================= */
+.cart-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background-color: #09172E;
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 229, 255, 0.2);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #112A54;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+.cart-item-info h3 {
+    margin: 0 0 5px 0;
+    color: #FFFFFF;
+}
+.cart-item-price {
+    color: #7FFFD4;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.cart-total {
+    text-align: right;
+    font-size: 1.5em;
+    color: #FFFFFF;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 229, 255, 0.2);
+}
+.btn-remove {
+    background-color: #FF4444;
+    color: #FFFFFF;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.btn-remove:hover {
+    background-color: #CC0000;
+}
+.btn-checkout {
+    background-color: #00E5FF;
+    color: #030D1A;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 1.1em;
+    cursor: pointer;
+    text-transform: uppercase;
+    width: 100%;
+    margin-top: 20px;
+    text-align: center;
+    display: block;
+    text-decoration: none;
+}
+.btn-checkout:hover {
+    background-color: #7FFFD4;
+}
+.empty-cart {
+    text-align: center;
+    color: #A0B0C8;
+    padding: 40px;
+}
+
+/* =========================================
+   10. CHECKOUT (checkout.jsp)
+   ========================================= */
+.checkout-container {
+    max-width: 900px;
+    margin: 40px auto;
+    display: flex;
+    gap: 30px;
+}
+.checkout-form-section {
+    flex: 2;
+    background-color: #09172E;
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 229, 255, 0.2);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+.checkout-summary-section {
+    flex: 1;
+    background-color: #112A54;
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 229, 255, 0.2);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    align-self: flex-start;
+}
+.checkout-section-title {
+    color: #00E5FF;
+    text-transform: uppercase;
+    border-bottom: 2px solid #00E5FF;
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group label {
+    display: block;
+    color: #A0B0C8;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 12px;
+    background-color: #030D1A;
+    border: 1px solid #5C6F8E;
+    color: #FFFFFF;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.form-group input:focus, .form-group select:focus {
+    border-color: #00E5FF;
+    outline: none;
+}
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    color: #A0B0C8;
+    font-size: 0.9em;
+}
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #FFFFFF;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+.btn-pay {
+    background-color: #00FF7F;
+    color: #030D1A;
+    border: none;
+    padding: 15px;
+    border-radius: 4px;
+    font-weight: 900;
+    font-size: 1.1em;
+    cursor: pointer;
+    text-transform: uppercase;
+    width: 100%;
+    margin-top: 30px;
+    transition: background-color 0.3s;
+}
+.btn-pay:hover {
+    background-color: #32CD32;
+}
+
+/* =========================================
+   11. LIBRERIA (libreria.jsp)
+   ========================================= */
+.library-header {
+    text-align: center;
+    margin: 40px 0;
+}
+.library-header h2 {
+    color: #00E5FF;
+    text-transform: uppercase;
+    font-size: 2.5em;
+    margin: 0;
+    letter-spacing: 2px;
+}
+.library-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 0 40px 40px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.library-card {
+    background-color: #112A54;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 229, 255, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+.library-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 229, 255, 0.2);
+}
+.library-cover {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+.library-info {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+.library-title {
+    color: #FFFFFF;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+.library-status {
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.status-badge {
+    background-color: #04142C;
+    color: #A0B0C8;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    font-weight: bold;
+}
+.btn-play {
+    background-color: #00FF7F;
+    color: #030D1A;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.9em;
+    transition: background-color 0.2s;
+}
+.btn-play:hover {
+    background-color: #32CD32;
+}
+.empty-library {
+    text-align: center;
+    padding: 60px;
+    background-color: #09172E;
+    border-radius: 8px;
+    margin: 0 40px;
+}
+.empty-library h3 {
+    color: #00E5FF;
+    font-size: 1.8em;
+}
+.empty-library p {
+    color: #A0B0C8;
+    font-size: 1.1em;
+    margin-bottom: 30px;
+}
