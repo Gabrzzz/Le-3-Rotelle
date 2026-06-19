@@ -66,7 +66,7 @@
         </div>
 
         <% if (utenteLoggato != null) { %>
-            <form action="CheckoutServlet" method="post">
+            <form action="checkout.jsp" method="get">
                 <button type="submit" class="btn-checkout">Procedi al Checkout</button>
             </form>
         <% } else { %>

@@ -54,6 +54,6 @@ public class CheckoutServlet extends HttpServlet {
         session.removeAttribute("carrello");
 
         // Reindirizza allo storico ordini o homepage
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("LibreriaServlet");
     }
 }
